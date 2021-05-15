@@ -1,9 +1,12 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.w3c.dom.css.CSSStyleDeclaration;
 
 import java.util.List;
@@ -21,32 +24,41 @@ public class Homework1 {
     private final By FIND_ARTICLE_COMMENTS = By.className("list-article__comment");
 
 
-    public ChromeDriver browserWindow;
+    private ChromeDriver driver;
 
     @BeforeEach
     public void setUP() {
         //WebDriver = browser window
         System.setProperty("webdriver.chrome.driver", "/users/karina/Documents/chromedriver");
-        browserWindow = new ChromeDriver();
-        browserWindow.manage().window().maximize();
-        browserWindow.get("http://tvnet.lv");
-        browserWindow.findElement(ACCEPT_COOKIES_BTN).click();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("http://tvnet.lv");
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(ACCEPT_COOKIES_BTN));
+
+        driver.findElement(ACCEPT_COOKIES_BTN).click();
+    }
+
+    @AfterEach
+    public void finished() {
+        driver.close();
     }
 
     // 1. Перейти на http://tvnet.lv, открыть первую статью и перейти на страницу комментариев.
     @Test
     public void firstArticleComments() {
-        WebElement firstArticle = browserWindow.findElement(FIND_ARTICLE);
+        WebElement firstArticle = driver.findElement(FIND_ARTICLE);
         firstArticle.findElement(FIND_A_TAG).click();
 
         //Sometimes no comments(throw error)
-        browserWindow.findElement(FIND_COMMENTS_BTN).click();
+        driver.findElement(FIND_COMMENTS_BTN).click();
     }
 
     // 2. Перейти на http://tvnet.lv и распечатать в консоль заголовок первой статьи.
     @Test
     public void printFirstArticleTitle() {
-        WebElement articleTitle = browserWindow.findElement(FIND_ARTICLE_TITLE);
+        WebElement articleTitle = driver.findElement(FIND_ARTICLE_TITLE);
 
         System.out.println(articleTitle.getText());
 
@@ -56,7 +68,7 @@ public class Homework1 {
     // 3.1. Всех заголовков статей
     @Test
     public void articleTitles() {
-        List<WebElement> allArticles = browserWindow.findElements(FIND_ARTICLE_TITLE);
+        List<WebElement> allArticles = driver.findElements(FIND_ARTICLE_TITLE);
 
         System.out.println(allArticles);
     }
@@ -64,7 +76,7 @@ public class Homework1 {
     // 3.2. Всех элементов с количеством комментариев.
     @Test
     public void getElementsWithComments() {
-        List<WebElement> elementsWithComments = browserWindow.findElements(FIND_ELEMENT_WITH_COMMENTS);
+        List<WebElement> elementsWithComments = driver.findElements(FIND_ELEMENT_WITH_COMMENTS);
 
         System.out.println(elementsWithComments);
     }
@@ -72,7 +84,7 @@ public class Homework1 {
     // 3.3. Для логотипа tvnet.lv
     @Test
     public void getLogo() {
-        WebElement tvnetLogo = browserWindow.findElement(FIND_TVNET_LOGO);
+        WebElement tvnetLogo = driver.findElement(FIND_TVNET_LOGO);
 
         System.out.println(tvnetLogo);
     }
@@ -80,7 +92,7 @@ public class Homework1 {
     // 3.4. Для ссылки переключения на русский язык (RUS).
     @Test
     public void switchRusBtnLink() {
-        WebElement topMenu = browserWindow.findElement(FIND_TOP_MENU);
+        WebElement topMenu = driver.findElement(FIND_TOP_MENU);
         WebElement rusBtnLink = topMenu.findElement(FIND_RUS_BTN_LINK);
         rusBtnLink.click();
 
@@ -91,11 +103,18 @@ public class Homework1 {
     // 4. Распечатать в консоль заголовки всех статей на главной странице.
     @Test
     public void printArticleTitles() {
-        List<WebElement> allArticles = browserWindow.findElements(FIND_ARTICLE);
+        List<WebElement> allArticles = driver.findElements(FIND_ARTICLE);
         for (int i = 0; i < allArticles.size(); i++) {
             WebElement article = allArticles.get(i);
-            WebElement title = article.findElement(FIND_ARTICLE_TITLE);
-            System.out.println(title.getText());
+            String title = article.findElement(FIND_ARTICLE_TITLE).getText();
+            boolean withComments = !article.findElements(FIND_ARTICLE_COMMENTS).isEmpty();
+
+            if (withComments) {
+                String commentsBtnText = article.findElement(FIND_ARTICLE_COMMENTS).getText();
+                title = title.replace(commentsBtnText, "");
+            }
+
+            System.out.println(title);
         }
     }
 
@@ -103,23 +122,22 @@ public class Homework1 {
     // но и рядом отдельно проставить колличество комментариев.
     @Test
     public void printArticleInfo() {
-        List<WebElement> allArticles = browserWindow.findElements(FIND_ARTICLE);
+        List<WebElement> allArticles = driver.findElements(FIND_ARTICLE);
         for (WebElement article : allArticles) {
             WebElement title = article.findElement(FIND_ARTICLE_TITLE);
-            boolean withoutComments = article.findElements(FIND_ARTICLE_COMMENTS).isEmpty();
-            String articleInfo;
+            boolean withComments = !article.findElements(FIND_ARTICLE_COMMENTS).isEmpty();
+            String commentsBtnText;
+            String finalResult;
 
-            //Short Version IF/ELSE
-            //String articleInfo = withoutComments ? title.getText() + " (0)" : title.getText() ;
-
-
-            if (withoutComments) {
-                articleInfo = title.getText() + " (0)";
+            if (withComments) {
+                commentsBtnText = article.findElement(FIND_ARTICLE_COMMENTS).getText();
+                String withoutBrackets = commentsBtnText.substring(1, commentsBtnText.length() - 1);
+                finalResult = title.getText().replace(commentsBtnText, " : " + withoutBrackets);
             } else {
-                articleInfo = title.getText();
+                finalResult = title.getText() + " : 0";
             }
 
-            System.out.println(articleInfo);
+            System.out.println(finalResult);
         }
     }
 
