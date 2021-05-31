@@ -4,12 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.w3c.dom.css.CSSStyleDeclaration;
+
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class Homework1 {
     // 1. Перейти на http://tvnet.lv, открыть первую статью и перейти на страницу комментариев.
     @Test
     public void firstArticleComments() {
-        LOGGER.info("This test opening first article page and comments page");
+        LOGGER.info("Opening first article page and comments page");
         WebElement firstArticle = driver.findElement(FIND_ARTICLE);
         LOGGER.info("Opening first article page");
         firstArticle.findElement(FIND_A_TAG).click();
@@ -64,7 +63,7 @@ public class Homework1 {
     // 2. Перейти на http://tvnet.lv и распечатать в консоль заголовок первой статьи.
     @Test
     public void printFirstArticleTitle() {
-        LOGGER.info("This test getting first article's title text");
+        LOGGER.info("Getting first article's title text");
         WebElement articleTitle = driver.findElement(FIND_ARTICLE_TITLE);
         String articleTitleText = articleTitle.getText();
         boolean withComments = !articleTitle.findElements(FIND_ARTICLE_COMMENTS).isEmpty();
@@ -81,7 +80,6 @@ public class Homework1 {
     // 3.1. Всех заголовков статей
     @Test
     public void articleTitles() {
-        LOGGER.info("Finding locator for all article tittles ");
         List<WebElement> allArticles = driver.findElements(FIND_ARTICLE_TITLE);
 
         System.out.println(allArticles);
@@ -90,7 +88,6 @@ public class Homework1 {
     // 3.2. Всех элементов с количеством комментариев.
     @Test
     public void getElementsWithComments() {
-        LOGGER.info("Finding locator for all elements with comments");
         List<WebElement> elementsWithComments = driver.findElements(FIND_ELEMENT_WITH_COMMENTS);
 
         System.out.println(elementsWithComments);
@@ -99,15 +96,14 @@ public class Homework1 {
     // 3.3. Для логотипа tvnet.lv
     @Test
     public void getLogo() {
-        LOGGER.info("Finding locator for http://tvnet.lv logo");
         WebElement tvnetLogo = driver.findElement(FIND_TVNET_LOGO);
-        LOGGER.info("Logo locator is: " + tvnetLogo);
+
+        System.out.println(tvnetLogo);
     }
 
     // 3.4. Для ссылки переключения на русский язык (RUS).
     @Test
     public void switchRusBtnLink() {
-        LOGGER.info("This test finding locator for RUS button link and change page language to russian");
         LOGGER.info("Finding RUS button link");
         WebElement topMenu = driver.findElement(FIND_TOP_MENU);
         WebElement rusBtnLink = topMenu.findElement(FIND_RUS_BTN_LINK);
@@ -119,7 +115,6 @@ public class Homework1 {
     // 4. Распечатать в консоль заголовки всех статей на главной странице.
     @Test
     public void printArticleTitles() {
-        LOGGER.info("This test finds all main page articles and prints their titles");
         LOGGER.info("Getting all main page articles title list");
         List<WebElement> allArticles = driver.findElements(FIND_ARTICLE);
         for (int i = 0; i < allArticles.size(); i++) {
@@ -141,7 +136,6 @@ public class Homework1 {
     // но и рядом отдельно проставить колличество комментариев.
     @Test
     public void printArticleInfo() {
-        LOGGER.info("This test finds all main page articles, prints their titles and comments count");
         LOGGER.info("Getting all main page articles title list and comments count");
         List<WebElement> allArticles = driver.findElements(FIND_ARTICLE);
 //        for (WebElement article : allArticles) {
