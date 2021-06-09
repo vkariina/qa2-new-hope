@@ -1,4 +1,4 @@
-package pageobject;
+package pageobject.pages.DelfiPages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,10 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import pageobject.pages.ArticlePage;
-import pageobject.pages.BaseFunc;
-import pageobject.pages.CommentsPage;
-import pageobject.pages.HomePage;
+import pageobject.BaseFunc;
 
 
 public class DelfiArticleCommentsTest {
@@ -21,7 +18,7 @@ public class DelfiArticleCommentsTest {
 
     @Test
     public void titleAndCommentsCountCheck() {
-        LOGGER.info("This test is checking titles and comments count on home/article/comments pages");
+        LOGGER.info("This test is checking titles and comments count for http://delfi.lv on home/article/comments pages");
 
         baseFunc = new BaseFunc();
         baseFunc.openPage("http://delfi.lv");
