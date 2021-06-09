@@ -40,6 +40,5 @@ public class HomePage {
         LOGGER.info("Getting title for article with id: " + (id + 1));
         return baseFunc.getText(getArticleById(id), FIND_ARTICLE_TITLE);
     }
-
 }
 
