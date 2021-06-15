@@ -55,6 +55,11 @@ public class BaseFunc {
         return parrent.findElements(child);
     }
 
+    public WebElement findElement(By locator) {
+        LOGGER.info("Getting element by: " + locator);
+        return driver.findElement(locator);
+    }
+
     public String getText(WebElement parent, By child) {
         LOGGER.info("Getting text for child elements by locator");
         wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(parent, child)).getText();

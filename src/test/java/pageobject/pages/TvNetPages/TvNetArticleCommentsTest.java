@@ -4,10 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import pageobject.BaseFunc;
+import pageobject.pages.DelfiPages.ArticlePage;
 
 public class TvNetArticleCommentsTest {
     private final Logger LOGGER = LogManager.getLogger(this.getClass());
-    private final int ARTICLE_ID = 4;
+    private final int ARTICLE_ID = 2;
 
     private BaseFunc baseFunc;
 
@@ -24,6 +25,10 @@ public class TvNetArticleCommentsTest {
 
         String homePageTitle = homePage.getTitle(ARTICLE_ID);
 
+        int homePageCommentsCount = homePage.getCommentsCount(ARTICLE_ID);
+
+
         System.out.println(homePageTitle);
+        System.out.println(homePageCommentsCount);
     }
 }
