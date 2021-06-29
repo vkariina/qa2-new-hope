@@ -2,13 +2,13 @@ package pageobject.pages.TvNetPages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pageobject.BaseFunc;
-import pageobject.pages.DelfiPages.ArticlePage;
 
 public class TvNetArticleCommentsTest {
     private final Logger LOGGER = LogManager.getLogger(this.getClass());
-    private final int ARTICLE_ID = 2;
+    private final int ARTICLE_ID = 8;
 
     private BaseFunc baseFunc;
 
@@ -27,8 +27,25 @@ public class TvNetArticleCommentsTest {
 
         int homePageCommentsCount = homePage.getCommentsCount(ARTICLE_ID);
 
+//        System.out.println(homePageTitle);
+//        System.out.println(homePageCommentsCount);
 
-        System.out.println(homePageTitle);
-        System.out.println(homePageCommentsCount);
+        ArticlePage articlePage = homePage.openArticle(ARTICLE_ID);
+
+        //-------------------ARTICLE PAGE-----------------------------------
+        String articlePageTitle = articlePage.getTitle();
+        int articlePageCommentsCount = articlePage.getCommentsCount();
+
+
+        LOGGER.info("Checking equality of homepage title and article title");
+        Assertions.assertEquals(homePageTitle, articlePageTitle, "Wrong title!");
+        LOGGER.info("Checking equality of homepage title comments count and article title's comment count");
+        Assertions.assertEquals(homePageCommentsCount, articlePageCommentsCount, "Wrong comments count!");
+
+        LOGGER.info("Title is: " + articlePageTitle + " and comments count is: " + articlePageCommentsCount);
+
+
+//        System.out.println(articlePageTitle);
+//        System.out.println(articlePageCommentsCount);
     }
 }

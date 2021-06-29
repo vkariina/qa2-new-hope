@@ -63,6 +63,13 @@ public class HomePage {
             return Integer.parseInt(commentsCountToParse);
         }
     }
+
+    public ArticlePage openArticle(int id) {
+        LOGGER.info("Opening article Nr." + (id + 1));
+        System.out.println("WWWWWWWW "+getArticleById(id).getText());
+        baseFunc.click(getArticleById(id));
+        return new ArticlePage(baseFunc);
+    }
 }
 
 
