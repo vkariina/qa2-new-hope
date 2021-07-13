@@ -1,18 +1,26 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherResponse {
     private Coord coord;
-    private Weather weather;
+
+    @JsonProperty("weather")
+    private List<Weather> weathers;
     private String base;
     private Main main;
-    private int visibility;
+    private Long visibility;
     private Wind wind;
     private Clouds clouds;
-    private String dt;
+    private Long dt;
     private Sys sys;
-    private String id;
+    private Long id;
     private String name;
-    private int cod;
+    private Long cod;
 
     public Coord getCoord() {
         return coord;
@@ -22,12 +30,12 @@ public class WeatherResponse {
         this.coord = coord;
     }
 
-    public Weather getWeather() {
-        return weather;
+    public List<Weather> getWeathers() {
+        return weathers;
     }
 
-    public void setWeather(Weather weather) {
-        this.weather = weather;
+    public void setWeathers(List<Weather> weathers) {
+        this.weathers = weathers;
     }
 
     public String getBase() {
@@ -46,11 +54,11 @@ public class WeatherResponse {
         this.main = main;
     }
 
-    public int getVisibility() {
+    public long getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(int visibility) {
+    public void setVisibility(long visibility) {
         this.visibility = visibility;
     }
 
@@ -70,11 +78,11 @@ public class WeatherResponse {
         this.clouds = clouds;
     }
 
-    public String getDt() {
+    public Long getDt() {
         return dt;
     }
 
-    public void setDt(String dt) {
+    public void setDt(Long dt) {
         this.dt = dt;
     }
 
@@ -86,11 +94,11 @@ public class WeatherResponse {
         this.sys = sys;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -102,11 +110,11 @@ public class WeatherResponse {
         this.name = name;
     }
 
-    public int getCod() {
+    public long getCod() {
         return cod;
     }
 
-    public void setCod(int cod) {
+    public void setCod(long cod) {
         this.cod = cod;
     }
 }

@@ -9,11 +9,15 @@ Feature: Testing weather endpoint
       | lon | 145.77 |
       | lat | -16.92 |
 
-    And  weather is:
-      | 0 | id          | 802              |
-      | 0 | main        | Clouds           |
-      | 0 | description | scattered clouds |
-      | 0 | icon        | 03n              |
+    And  weathers are:
+#      | id          | 802              |
+#      | main        | Clouds           |
+#      | description | scattered clouds |
+#      | icon        | 03n              |
+
+      | id  | main   | description      | icon |
+      | 802 | Clouds | scattered clouds | 03n  |
+#    |  803   |    sunny    |      blabla            |  05k    |
 
     And base is "stations"
 
@@ -35,11 +39,11 @@ Feature: Testing weather endpoint
 
     And dt is 1485790200
 
-    And system is:
+    And sys is:
       | type    | 1          |
       | id      | 8166       |
       | message | 0.2064     |
-      | country | "AU"       |
+      | country | AU         |
       | sunrise | 1485720272 |
       | sunset  | 1485766550 |
 
