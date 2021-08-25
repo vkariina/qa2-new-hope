@@ -5,8 +5,8 @@ import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import model.Weather;
-import model.WeatherResponse;
+import model.Weather.Weather;
+import model.Weather.WeatherResponse;
 import org.junit.jupiter.api.Assertions;
 import requesters.WeatherRequester;
 
@@ -121,3 +121,4 @@ public class WeatherStepDefs {
         Assertions.assertEquals(cod, response.getCod(), "Wrong cod!");
     }
 }
+

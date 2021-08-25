@@ -2,7 +2,7 @@ package requesters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.WeatherResponse;
+import model.Weather.WeatherResponse;
 import org.springframework.web.client.RestTemplate;
 
 public class WeatherRequester {

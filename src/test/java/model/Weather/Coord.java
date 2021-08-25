@@ -1,4 +1,4 @@
-package model;
+package model.Weather;
 
 public class Coord {
     private double lon;

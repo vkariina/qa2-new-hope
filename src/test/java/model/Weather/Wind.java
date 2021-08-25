@@ -1,4 +1,4 @@
-package model;
+package model.Weather;
 
 public class Wind {
     private double speed;

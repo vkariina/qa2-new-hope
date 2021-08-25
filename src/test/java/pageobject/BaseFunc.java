@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class BaseFunc {
 
     public WebElement findElement(By locator) {
         LOGGER.info("Getting element by: " + locator);
-        return driver.findElement(locator);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public String getText(WebElement parent, By child) {
@@ -72,13 +73,41 @@ public class BaseFunc {
     }
 
     public String getText(WebElement we) {
+
         return wait.until(ExpectedConditions.visibilityOf(we)).getText();
     }
+
+    public String getText(By parent, By child) {
+        return wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(parent, child)).getText();
+    }
+
 
     public void closeBrowser() {
         LOGGER.info("Closing browser window");
         if (driver != null) {
             driver.close();
         }
+    }
+
+    public void select(By dropdown, String text) {
+        LOGGER.info("Selecting " + text + " from dropdown by locator: " + dropdown);
+        Select select = new Select(findElement(dropdown));
+        select.selectByVisibleText(text);
+    }
+
+    public void type(By locator, String text) {
+        LOGGER.info("Typing " + text + " into " + locator);
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        input.clear();
+        input.sendKeys(text);
+    }
+
+    public void type(By locator, int text) {
+        type(locator, String.valueOf(text));
+    }
+
+    public void waitForElementsCountToBeMoreThen(By locator, int count) {
+        LOGGER.info("Waiting for elements count to be " + count);
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, count));
     }
 }
